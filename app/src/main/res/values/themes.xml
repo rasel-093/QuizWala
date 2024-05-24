@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.QuizWala" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="App.Starting.Theme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/quiz_app_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.QuizWala</item>
+    </style>
+</resources>

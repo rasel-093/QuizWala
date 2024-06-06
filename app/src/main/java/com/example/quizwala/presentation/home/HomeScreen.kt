@@ -15,38 +15,26 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.quizwala.presentation.common.AppDropdownMenu
 import com.example.quizwala.presentation.common.ButtonBox
+import com.example.quizwala.presentation.nav_graph.Routes
 import com.example.quizwala.presentation.util.Constants
 import com.example.quizwala.presentation.util.Dimens
 import com.example.quizwala.presentation.util.Dimens.MediumPadding
 import kotlin.reflect.KFunction1
 
-@Preview
-@Composable
-fun PreviewHomeScreen(){
-    HomeScreen(state = StateHomeScreen(), onEvent = {})
-}
+//@Preview
+//@Composable
+//fun PreviewHomeScreen(){
+//    HomeScreen(state = StateHomeScreen(), onEvent = {})
+//}
 @Composable
 fun HomeScreen(
     state: StateHomeScreen,
-    onEvent: (EventsHomeScreen)->Unit
+    onEvent: (EventsHomeScreen)->Unit,
+    navController: NavController
 ) {
-
-    var numberOfQuestions by rememberSaveable{
-        mutableStateOf(0)
-    }
-    var category by rememberSaveable {
-        mutableStateOf("")
-    }
-    var difficulty by rememberSaveable {
-        mutableStateOf("")
-    }
-    var type by rememberSaveable {
-        mutableStateOf("")
-    }
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,7 +69,16 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
 
         ButtonBox(text = "Generate Quiz", padding = MediumPadding ){
-            Log.d("Quiz Details", "${state.numberOfQuizzes} ${state.quizCategory} ${state.difficulty} ${state.quizType}")
+//            Log.d("Quiz Details", "${state.numberOfQuizzes} ${state.quizCategory} ${state.difficulty} ${state.quizType}")
+            navController.navigate(
+                route = Routes.QuizScreen.passQuizParams(
+                    quizNumber = state.numberOfQuizzes,
+                    quizCategory = state.quizCategory,
+                    quizDifficulty = state.difficulty,
+                    quizType = state.quizType
+                )
+            )
+            //println(Routes.QuizScreen.passQuizParams(state.numberOfQuizzes,state.quizCategory,state.difficulty,state.quizType))
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.quizwala.presentation.quiz
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -45,8 +46,10 @@ fun QuizScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Quiestions: $numOfQuiz", color = colorResource(id = R.color.blue_gray))
+                Text(text = "Questions: $numOfQuiz", color = colorResource(id = R.color.blue_gray))
                 Text(text = quizDifficulty, color = colorResource(id = R.color.blue_gray))
+                Text(text = quizCategory, color = colorResource(id = R.color.blue_gray))
+
             }
 
             Spacer(modifier = Modifier.height(Dimens.SmallSpacerHeight))

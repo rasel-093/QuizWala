@@ -17,11 +17,16 @@ object Dimens {
 
     val SmallSpacerHeight = 8.dp
     val MediumSpacerHeight = 18.dp
+    val LargeSpacerHeight = 30.dp
 
+    val MediumCornerRadius = 30.dp
     val LargeCornerRadius = 50.dp
     val ExtraLargeCornerRadius = 60.dp
 
     val MediumBoxHeight = 60.dp
+
+    val verySmallViewHeight = 2.dp
+
 
 
 }

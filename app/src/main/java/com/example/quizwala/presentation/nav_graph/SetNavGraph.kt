@@ -1,9 +1,8 @@
 package com.example.quizwala.presentation.nav_graph
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,6 +12,7 @@ import androidx.navigation.navArgument
 import com.example.quizwala.presentation.home.HomeScreen
 import com.example.quizwala.presentation.home.HomeViewmodel
 import com.example.quizwala.presentation.quiz.QuizScreen
+import com.example.quizwala.presentation.quiz.QuizViewModel
 
 @Composable
 fun SetNavGraph() {
@@ -43,8 +43,18 @@ fun SetNavGraph() {
             val category = it.arguments?.getString(ARG_KEY_QUIZ_CATEGORY)
             val difficulty = it.arguments?.getString(ARG_KEY_QUIZ_DIFFICULTY)
             val type = it.arguments?.getString(ARG_KEY_QUIZ_TYPE)
-            QuizScreen(numOfQuiz = numOfQuiz!!, quizCategory = category!! , quizDifficulty = difficulty!! )
 
+            val quizViewModel: QuizViewModel = hiltViewModel()
+            val quizState by quizViewModel.quizList.collectAsState()
+
+            QuizScreen(
+                numOfQuiz = numOfQuiz!!,
+                quizCategory = category!!,
+                quizDifficulty = difficulty!!,
+                quizType = type!!,
+                event = {quizViewModel.onEvent(it)},
+                state = quizState
+            )
         }
     }
 }

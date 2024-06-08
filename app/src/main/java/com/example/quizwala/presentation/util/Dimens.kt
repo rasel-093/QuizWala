@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 object Dimens {
+    val SmallTextSize = 16.sp
     val MediumTextSize = 26.sp
     val LargeTextSize = 40.sp
 
@@ -27,6 +28,8 @@ object Dimens {
 
     val verySmallViewHeight = 2.dp
 
+    val SmallCircleShape = 90.dp
 
+    val SmallBorderWidth = 2.dp
 
 }

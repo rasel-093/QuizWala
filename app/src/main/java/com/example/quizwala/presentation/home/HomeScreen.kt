@@ -68,7 +68,7 @@ fun HomeScreen(
         ) { onEvent(EventsHomeScreen.SetQuizType(it)) }
         Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
 
-        ButtonBox(text = "Generate Quiz", padding = MediumPadding ){
+        ButtonBox(text = "Generate Quiz", padding = MediumPadding){
 //            Log.d("Quiz Details", "${state.numberOfQuizzes} ${state.quizCategory} ${state.difficulty} ${state.quizType}")
             navController.navigate(
                 route = Routes.QuizScreen.passQuizParams(

@@ -1,6 +1,7 @@
 package com.example.quizwala.presentation.quiz
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,14 +33,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.quizwala.R
 import com.example.quizwala.domain.repository.QuizInterface
 import com.example.quizwala.presentation.common.ButtonBox
 import com.example.quizwala.presentation.common.QuizAppBar
+import com.example.quizwala.presentation.nav_graph.Routes
 import com.example.quizwala.presentation.quiz.component.ShimmerEffectInterface
+import com.example.quizwala.presentation.score.navigateToHomeScreen
 import com.example.quizwala.presentation.util.Constants
 import com.example.quizwala.presentation.util.Dimens
 import kotlinx.coroutines.launch
+import okhttp3.Route
 
 @Preview
 @Composable
@@ -61,7 +67,8 @@ fun QuizScreen(
     quizDifficulty: String,
     quizType: String,
     event: (EventQuizScreen)->Unit,
-    state: StateQuizScreen
+    state: StateQuizScreen,
+    navController: NavController = rememberNavController()
 ) {
     val difficulty = quizDifficulty.lowercase()
     val type = when(quizType){
@@ -70,6 +77,10 @@ fun QuizScreen(
 
     }
 
+
+    BackHandler {
+        navigateToHomeScreen(navController)
+    }
 
     LaunchedEffect(key1 = Unit) {
         event(EventQuizScreen.GetQuizzes(numOfQuiz, Constants.categoriesMap[quizCategory]!!, difficulty, type))
@@ -81,6 +92,7 @@ fun QuizScreen(
     ) {
         QuizAppBar(quizCategory = quizCategory){
             //onback click -> Navigate to home screen
+            navigateToHomeScreen(navController)
         }
         Column(
             modifier = Modifier
@@ -184,7 +196,10 @@ fun QuizScreen(
 //                            state.quizState.forEach {
 //                                Log.d("SelectedOptions", it.selectedOption.toString())
 //                            }
-                            Log.d("score", state.score.toString())
+//                            Log.d("score", state.score.toString())
+                            navController.navigate(
+                                Routes.ScoreScreen.passScoreParams(noOfQuestions = state.quizState.size, noOfCorrectAnswers = state.score)
+                            )
                         }else{
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)

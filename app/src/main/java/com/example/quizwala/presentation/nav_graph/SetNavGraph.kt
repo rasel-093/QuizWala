@@ -13,6 +13,7 @@ import com.example.quizwala.presentation.home.HomeScreen
 import com.example.quizwala.presentation.home.HomeViewmodel
 import com.example.quizwala.presentation.quiz.QuizScreen
 import com.example.quizwala.presentation.quiz.QuizViewModel
+import com.example.quizwala.presentation.score.ScoreScreen
 
 @Composable
 fun SetNavGraph() {
@@ -53,8 +54,21 @@ fun SetNavGraph() {
                 quizDifficulty = difficulty!!,
                 quizType = type!!,
                 event = {quizViewModel.onEvent(it)},
-                state = quizState
+                state = quizState,
+                navController = navController
             )
+        }
+
+        composable(
+            route = Routes.ScoreScreen.route,
+            arguments = listOf(
+                navArgument(NO_OF_QUESTIONS_KEY){NavType.IntType},
+                navArgument(NO_OF_CORRECT_ANSWERS_KEY){NavType.IntType}
+            )
+        ){
+            val noOfQuestions = it.arguments?.getString(NO_OF_QUESTIONS_KEY)?.toInt()
+            val noOfCorrectAnswers = it.arguments?.getString(NO_OF_CORRECT_ANSWERS_KEY)?.toInt()
+            ScoreScreen(numOfQuestions = noOfQuestions!!, numOfCorrectAns = noOfCorrectAnswers!!, navController = navController)
         }
     }
 }

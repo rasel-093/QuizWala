@@ -19,17 +19,19 @@ import com.example.quizwala.R
 import com.example.quizwala.domain.repository.QuizInterface
 import com.example.quizwala.presentation.quiz.component.QuizOption
 import com.example.quizwala.presentation.util.Dimens
-@Preview
-@Composable
-fun QuizPrev(){
-    QuizInterface({}, 1, Modifier)
-}
+//@Preview
+//@Composable
+//fun QuizPrev(){
+//    QuizInterface({}, 1, QuizState ,Modifier)
+//}
 @Composable
 fun QuizInterface(
     onOptionSelected: (Int) -> Unit,
     questionNumber: Int,
+    quizState: QuizState,
     modifier: Modifier
 ) {
+    val question = quizState.quiz?.question?.replace("&quot;", "\"")?.replace("&#039", "\"")
 
     Box(modifier = modifier, contentAlignment = Alignment.Center){
         Column(modifier = Modifier.wrapContentHeight()) {
@@ -44,7 +46,7 @@ fun QuizInterface(
                 )
 
                 Text(
-                    text = "Which cartoon do you see? ",
+                    text = question!!,
                     modifier = Modifier.weight(9f),
                     color = colorResource(
                         id = R.color.blue_gray
@@ -56,17 +58,19 @@ fun QuizInterface(
 
             Column(modifier = Modifier.padding(horizontal = 15.dp)) {
                 val options = listOf(
-                    "A" to "Naruto",
-                    "B" to "Dragon Ball",
-                    "C" to "One Piece",
-                    "D" to "Bleach"
+                    "A" to quizState.suffeledOptions[0].replace("&quot;", "\"").replace("&#039", "\""),
+                    "B" to quizState.suffeledOptions[1].replace("&quot;", "\"").replace("&#039", "\""),
+                    "C" to quizState.suffeledOptions[2].replace("&quot;", "\"").replace("&#039", "\""),
+                    "D" to quizState.suffeledOptions[3].replace("&quot;", "\"").replace("&#039", "\""),
                 )
+
+
                 options.forEachIndexed() { index, (option, optionText) ->
                     if (optionText.isNotEmpty()) {
                         QuizOption(
                             optionNumber = option,
                             options = optionText,
-                            selected = false,
+                            selected = quizState.selectedOption == index,
                             onOptionClick = { onOptionSelected(index) }) {
                             onOptionSelected(-1)
                         }

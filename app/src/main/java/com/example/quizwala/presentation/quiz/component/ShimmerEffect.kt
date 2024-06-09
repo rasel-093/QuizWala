@@ -7,6 +7,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +38,12 @@ import com.example.quizwala.presentation.util.Dimens
 @Preview
 @Composable
 fun ShimmerEffectInterface(){
-    Column(){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)) {
@@ -76,7 +82,8 @@ fun ShimmerEffectInterface(){
         Row(
             modifier = Modifier
                 .padding(Dimens.MediumPadding)
-                .navigationBarsPadding()
+                .navigationBarsPadding(),
+            verticalAlignment = Alignment.Bottom
         ) {
             Box(
                 modifier = Modifier
